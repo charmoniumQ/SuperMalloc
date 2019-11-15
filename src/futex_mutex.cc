@@ -32,7 +32,7 @@ static long futex_wakeN(volatile int *addr) {
 }
 
 static const int lock_spin_count = 20;
-static const int unlock_spin_count = 20;
+// static const int unlock_spin_count = 20;
 
 // Return 0 if it's a fast acquiistion, 1 if slow
 extern "C" int futex_mutex_lock(futex_mutex_t *m) {

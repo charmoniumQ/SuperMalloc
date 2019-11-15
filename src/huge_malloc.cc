@@ -10,7 +10,7 @@
 #include "generated_constants.h"
 #include "malloc_internal.h"
 
-static lock_t huge_lock = LOCK_INITIALIZER;
+static lock_t huge_lock = {LOCK_INITIALIZER};
 
 // free_chunks[0] is a list of 1-chunk objects (which are, by definition chunk-aligned)
 // free_chunks[1] is a list of 2-chunk objects which are also 2-chunk aligned (that is 4MiB-aligned).

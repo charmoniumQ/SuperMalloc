@@ -79,7 +79,7 @@ uint32_t n_cores;
 #ifdef DO_FAILED_COUNTS
 atomic_stats_s atomic_stats;
 
-lock_t failed_counts_mutex = LOCK_INITIALIZER;
+lock_t failed_counts_mutex = {LOCK_INITIALIZER};
 int    failed_counts_n = 0;
 struct failed_counts_s failed_counts[max_failed_counts];
 

@@ -355,8 +355,13 @@ static void collect_objects_for_thread_cache(cached_objects *objects,
   }
 }
 
+#if defined(__GNUC__) && !defined(__clang__)
 __attribute__((optimize("unroll-loops")))
+#endif
 static void predo_fetch_one_from_cpu(CacheForBin *cc, size_t siz __attribute__((unused))) {
+#if defined(__clang__)
+  #pragma unroll
+#endif
   for (int i = 0; i < 2 ; i++) {
     linked_list *result = cc->co[i].head;
     if (result) {
@@ -367,8 +372,13 @@ static void predo_fetch_one_from_cpu(CacheForBin *cc, size_t siz __attribute__((
   }
 }
 
+#if defined(__GNUC__) && !defined(__clang__)
 __attribute__((optimize("unroll-loops")))
+#endif
 static void* do_fetch_one_from_cpu(CacheForBin *cc, size_t siz) {
+#if defined(__clang__)
+  #pragma unroll
+#endif
   for (int i = 0; i < 2; i++) {
     linked_list *result = cc->co[i].head;
     if (result) {
@@ -676,10 +686,16 @@ static bool do_put_into_cpu_cache(linked_list *obj,
   return false;
 }
 
+
+#if defined(__GNUC__) && !defined(__clang__)
 __attribute__((optimize("unroll-loops")))
+#endif
 static void predo_put_one_into_cpu_cache(linked_list *obj,
 					 CacheForBin *cc,
 					 uint64_t siz __attribute__((unused))) {
+#if defined(__clang__)
+  #pragma unroll
+#endif
   for (int i = 0; i < 2; i++) {
     uint64_t old_bytecount = cc->co[i].bytecount;
     if (old_bytecount < per_cpu_cache_bytecount_limit) {
@@ -691,10 +707,15 @@ static void predo_put_one_into_cpu_cache(linked_list *obj,
   }
 }
 
+#if defined(__GNUC__) && !defined(__clang__)
 __attribute__((optimize("unroll-loops")))
+#endif
 static bool do_put_one_into_cpu_cache(linked_list *obj,
 				      CacheForBin *cc,
 				      uint64_t siz) {
+#if defined(__clang__)
+  #pragma unroll
+#endif
   for (int i = 0; i < 2; i++) {
     uint64_t old_bytecount = cc->co[i].bytecount;
     if (old_bytecount < per_cpu_cache_bytecount_limit) {

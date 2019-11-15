@@ -280,7 +280,7 @@ done_small:
       objsize -= pagesize; 
       comment = " (reserve a page for the list of sizes)";
     }
-    struct static_bin_t b(BIN_LARGE, objsize);
+    class static_bin_t b(BIN_LARGE, objsize);
     b.print(cf, bin++);
     fprintf(cf, " %s\n", comment);
     static_bins.push_back(b);
@@ -289,7 +289,7 @@ done_small:
   binnumber_t first_huge_bin = bin;
   fprintf(cf, "// huge objects (chunk allocated) start  at this size.\n");
   for (uint64_t siz = chunksize; siz < (1ul<<48); siz*=2) {
-    struct static_bin_t b(BIN_HUGE, siz);
+    class static_bin_t b(BIN_HUGE, siz);
     b.print(cf, bin++);
     fprintf(cf, "\n");
   }

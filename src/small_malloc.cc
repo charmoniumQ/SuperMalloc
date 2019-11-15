@@ -4,7 +4,7 @@
 #include "malloc_internal.h"
 #include <sys/mman.h>
 
-lock_t small_locks[first_large_bin_number] = { REPEAT_FOR_SMALL_BINS(LOCK_INITIALIZER) };
+lock_t small_locks[first_large_bin_number] = { REPEAT_FOR_SMALL_BINS({LOCK_INITIALIZER}) };
 
 static struct {
   dynamic_small_bin_info lists __attribute__((aligned(4096)));
